@@ -3,6 +3,7 @@ import json
 from json import JSONEncoder
 import make_json_serializable  # 用于自定义对象的JSON
 
+import test
 # 关于楼层编号:从地下3到地上18编号 0-20 一楼编号:3
 
 max_person = 13  # 电梯载客量
@@ -48,30 +49,9 @@ def core_algorithm(time, array_people):
     # return [ [电梯1,电梯2,电梯3], [人1,人2....] ]
     pass
 
-# 测试算法
-
-
-def test():
-    person_1 = person()
-    person_1.from_floor = 3
-    person_1.to_floor = 12
-    person_1.come_time = 1
-    person_1.current_floor = 3
-
-    core_algorithm(7, [person_1, person_1, person_1])
-    # 有3个人在1.0秒出现于第3层(第0层指地下三层,第3层指1楼),要前往第12层,求第7.0秒时电梯和人员的位置
-
-    # 由第3层到第12层,只能使用电梯0
-
-    # 1.0秒到7.0秒,共6秒,电梯上移三层,由3层到6层
-
-    # 所以应该返回
-    person_1.current_floor = 6
-
-    return [elevator(6, True), elevator(3, False), elevator(3, False), [person_1, person_1, person_1]]
-
 
 # 通过标准输入输出,供外部程序调用,还没有写
 if __name__ == "__main__":
-    result = test()
-    print(json.dumps(result))
+    result = test.test2()
+    print(json.dumps(result, indent=4))
+    # print(json.dumps(result, indent=4))
