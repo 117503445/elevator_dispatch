@@ -28,7 +28,10 @@ namespace elevator_dispatch_GUI
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine(PythonCaller.PathPythonFile);
+            //Console.WriteLine(PythonCaller.PathPythonFile);
+            string cmd = $"python {PythonCaller.PathPythonFile}";
+            string output = CMDHelper.RunCmd(cmd);
+            Console.WriteLine(output);
         }
     }
 }

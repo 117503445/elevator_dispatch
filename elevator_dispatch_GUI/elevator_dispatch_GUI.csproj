@@ -59,6 +59,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="CMDHelper.cs" />
     <Compile Include="CSUtil.cs" />
     <Compile Include="PythonCaller.cs" />
     <Compile Include="WdMain.xaml.cs">
