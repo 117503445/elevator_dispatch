@@ -43,7 +43,7 @@ def test1():
     person_3.current_floor = 6
     person_3.is_in_elevator = True
 
-    return [elevator(6, True), elevator(3, False), elevator(3, False), [person_1, person_2, person_3]]
+    return [[elevator(6, True), elevator(3, False), elevator(3, False)], [person_1, person_2, person_3]]
 
 
 def test2():
@@ -104,6 +104,4 @@ def test2():
     person_3.current_floor = 6
     person_3.is_in_elevator = True
 
-
-
-    return [elevator(6, True), elevator(3, False), elevator(3.5, True), [person_1, person_2, person_3, person_4, person_5]]
+    return [[elevator(6, True), elevator(3, False), elevator(3.5, True)], [person_1, person_2, person_3, person_4, person_5]]

@@ -43,6 +43,7 @@ class elevator:
             dict_name_value[name] = value
         return dict_name_value
 # 核心算法:顺向截停
+# 对输入人群数组,不应假设每个人的出现时间都是1 6 11 ... 而可能是任意整数时间点(不方便的话再进行沟通)
 
 
 def core_algorithm(time, array_people):
