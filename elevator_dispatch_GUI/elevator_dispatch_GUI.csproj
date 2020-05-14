@@ -59,6 +59,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="CSUtil.cs" />
+    <Compile Include="PythonCaller.cs" />
     <Compile Include="WdMain.xaml.cs">
       <DependentUpon>WdMain.xaml</DependentUpon>
     </Compile>
@@ -96,4 +98,8 @@
     </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
 </Project>

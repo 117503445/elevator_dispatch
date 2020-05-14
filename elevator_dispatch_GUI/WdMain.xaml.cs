@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.IO;
+using System.Collections;
 
 namespace elevator_dispatch_GUI
 {
@@ -22,6 +24,13 @@ namespace elevator_dispatch_GUI
         public WdMain()
         {
             InitializeComponent();
+
+
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine(PythonCaller.PathPythonFile);
         }
     }
 }
