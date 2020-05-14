@@ -24,8 +24,6 @@ namespace elevator_dispatch_GUI
         public WdMain()
         {
             InitializeComponent();
-
-
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

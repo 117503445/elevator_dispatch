@@ -1,3 +1,8 @@
+import json
+
+from json import JSONEncoder
+import make_json_serializable  # 用于自定义对象的JSON
+
 # 关于楼层编号:从地下3到地上18编号 0-20 一楼编号:3
 
 max_person = 13  # 电梯载客量
@@ -12,6 +17,12 @@ class person:  # 人
     is_in_elevator = False  # 是否在电梯中
     is_out = False  # 是否已经完成电梯乘坐
 
+    def to_json(self):
+        dict_name_value = {}
+
+        for name, value in vars(self).items():
+            dict_name_value[name] = value
+        return dict_name_value
 # 电梯
 # 电梯0可以停靠所有楼层,电梯1单到单,电梯2双到双
 
@@ -24,6 +35,12 @@ class elevator:
         self.current_floor = current_floor
         self.is_up = is_up
 
+    def to_json(self):
+        dict_name_value = {}
+
+        for name, value in vars(self).items():
+            dict_name_value[name] = value
+        return dict_name_value
 # 核心算法:顺向截停
 
 
@@ -37,8 +54,9 @@ def core_algorithm(time, array_people):
 def test():
     person_1 = person()
     person_1.from_floor = 3
-    person.to_floor = 12
+    person_1.to_floor = 12
     person_1.come_time = 1
+    person_1.current_floor = 3
 
     core_algorithm(7, [person_1, person_1, person_1])
     # 有3个人在1.0秒出现于第3层(第0层指地下三层,第3层指1楼),要前往第12层,求第7.0秒时电梯和人员的位置
@@ -47,11 +65,13 @@ def test():
 
     # 1.0秒到7.0秒,共6秒,电梯上移三层,由3层到6层
 
-    #所以应该返回
-     
-    [elevator(6,True),elevator(3,False),elevator(3,False),[]]
+    # 所以应该返回
+    person_1.current_floor = 6
+
+    return [elevator(6, True), elevator(3, False), elevator(3, False), [person_1, person_1, person_1]]
 
 
 # 通过标准输入输出,供外部程序调用,还没有写
 if __name__ == "__main__":
-    pass
+    result = test()
+    print(json.dumps(result))
