@@ -41,7 +41,22 @@ def core_algorithm(time, array_people):
 
 
     #下面根据电梯运行情况分类处理
+    if(is_up == True): #电梯上行
+        if(e.current_floor % 1 != 0): #电梯未与楼层对齐
+            e.current_floor += 0.5    #向上半层(用时一秒)
+            for p in array_people:  #更新所有乘客状态
+                if(p.is_in_elevator == True):
+                    p.current_floor += e.current_floor   
+        else: #电梯对齐某一楼层
+            if(f[current_floor] == True): #这层楼有人需要上行
+                #这里没电梯处理人满的情况
                 
+                f[current_floor].floor_people[0].is_in_elevator = True #加入电梯中
+                f[current_floor].floor_people.pop(0)
+                if(len(f[current_floor]) == 0):
+                    f[current_floor] == False #人已经全部进入电梯
+            elif(): #电梯里有人到达目标楼层
+                pass
                 
         
     # return [ [电梯1,电梯2,电梯3], [人1,人2....] ]
