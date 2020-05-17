@@ -31,7 +31,7 @@ def core_algorithm(time, array_people):
 
                 
                 #更新楼层状态
-                f[from_floor].append(p)        #将人添加到楼层中
+                f[from_floor].floor_people.append(p)        #将人添加到楼层中
                 if(p.to_floor > p.from_floor): #此人上行
                     f[from_floor].up_buttom = True #按下上行按钮
                 else:
