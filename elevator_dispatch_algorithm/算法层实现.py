@@ -27,7 +27,7 @@ def core_algorithm(time, array_people):
         #处理人群到达的事件
             if(p.come_time==t):   #这个人[第一次]出现，则加入到楼层中（第一次出现显然不会在电梯里，也不会完成乘坐
                 #更新人的状态
-                p.current_floor = p.from_floor
+                p.current_floor = p.from_floor #（看了下测试代码，感觉这里有些多余，不过还是保留在这里
 
                 
                 #更新楼层状态
@@ -54,7 +54,7 @@ def core_algorithm(time, array_people):
                 f[current_floor].floor_people[0].is_in_elevator = True #加入电梯中
                 f[current_floor].floor_people.pop(0)
                 if(len(f[current_floor]) == 0):
-                    f[current_floor].up_button == False #人已经全部进入电梯
+                    f[current_floor].up_button == False #人已经全部进入电梯，楼层上行灯灭
             elif(): #电梯里有人到达目标楼层
                 pass
                 
