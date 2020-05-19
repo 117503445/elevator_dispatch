@@ -56,8 +56,7 @@ namespace elevator_dispatch_GUI
                 CvsMain.Children.Add(tb);
             }//生成楼层告示
 
-            var images = new List<Image>();
-
+            var images = new List<Image>();//生成3个电梯
             for (int i = 0; i < algorithmResult.Elevators.Length; i++)
             {
                 var e = algorithmResult.Elevators[i];

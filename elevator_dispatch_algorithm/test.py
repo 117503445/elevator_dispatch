@@ -9,7 +9,7 @@ def test1():
     person_1.to_floor = 12
     person_1.come_time = 1
     person_1.current_floor = 3
-    person_1.is_in_elevator = False
+    person_1.in_which_elevator = 0
     person_1.is_out = False
 
     person_2 = person()
@@ -17,7 +17,7 @@ def test1():
     person_2.to_floor = 12
     person_2.come_time = 1
     person_2.current_floor = 3
-    person_2.is_in_elevator = False
+    person_2.in_which_elevator = 0
     person_2.is_out = False
 
     person_3 = person()
@@ -25,7 +25,7 @@ def test1():
     person_3.to_floor = 12
     person_3.come_time = 1
     person_3.current_floor = 3
-    person_3.is_in_elevator = False
+    person_3.in_which_elevator = 0
     person_3.is_out = False
 
     core_algorithm(7, [person_1, person_2, person_3])
@@ -37,13 +37,13 @@ def test1():
 
     # 所以应该返回
     person_1.current_floor = 6
-    person_1.is_in_elevator = True
+    person_1.in_which_elevator = 1
     person_2.current_floor = 6
-    person_2.is_in_elevator = True
+    person_2.in_which_elevator = 1
     person_3.current_floor = 6
-    person_3.is_in_elevator = True
+    person_3.in_which_elevator = 1
 
-    return [[elevator(6, True), elevator(3, False), elevator(3, False)], [person_1, person_2, person_3]]
+    return [[elevator(6, 1), elevator(3, 0), elevator(3, 0)], [person_1, person_2, person_3]]
 
 
 def test2():
@@ -52,7 +52,7 @@ def test2():
     person_1.to_floor = 12
     person_1.come_time = 1
     person_1.current_floor = 3
-    person_1.is_in_elevator = False
+    person_1.in_which_elevator = 0
     person_1.is_out = False
 
     person_2 = person()
@@ -60,7 +60,7 @@ def test2():
     person_2.to_floor = 12
     person_2.come_time = 1
     person_2.current_floor = 3
-    person_2.is_in_elevator = False
+    person_2.in_which_elevator = 0
     person_2.is_out = False
 
     person_3 = person()
@@ -68,7 +68,7 @@ def test2():
     person_3.to_floor = 12
     person_3.come_time = 1
     person_3.current_floor = 3
-    person_3.is_in_elevator = False
+    person_3.in_which_elevator = 0
     person_3.is_out = False
 
     person_4 = person()
@@ -76,7 +76,7 @@ def test2():
     person_4.to_floor = 6
     person_4.come_time = 6
     person_4.current_floor = 3
-    person_4.is_in_elevator = False
+    person_4.in_which_elevator = 0
     person_4.is_out = False
 
     person_5 = person()
@@ -84,7 +84,7 @@ def test2():
     person_5.to_floor = 6
     person_5.come_time = 6
     person_5.current_floor = 3
-    person_5.is_in_elevator = False
+    person_5.in_which_elevator = 0
     person_5.is_out = False
 
     core_algorithm(7, [person_1, person_2, person_3, person_4, person_5])
@@ -98,10 +98,10 @@ def test2():
 
     # 所以应该返回
     person_1.current_floor = 6
-    person_1.is_in_elevator = True
+    person_1.in_which_elevator = 1
     person_2.current_floor = 6
-    person_2.is_in_elevator = True
+    person_2.in_which_elevator = 1
     person_3.current_floor = 6
-    person_3.is_in_elevator = True
+    person_3.in_which_elevator = 1
 
-    return [[elevator(6, True), elevator(3, False), elevator(3.5, True)], [person_1, person_2, person_3, person_4, person_5]]
+    return [[elevator(6, 1), elevator(3, 1), elevator(3.5, 0)], [person_1, person_2, person_3, person_4, person_5]]

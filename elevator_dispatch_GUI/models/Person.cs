@@ -13,7 +13,7 @@ namespace elevator_dispatch_GUI.models
         public int from_floor { get; set; }
         public int to_floor { get; set; }
         public int current_floor { get; set; }
-        public bool is_in_elevator { get; set; }
+        public int in_which_elevator { get; set; }
         public bool is_out { get; set; }
     }
 }

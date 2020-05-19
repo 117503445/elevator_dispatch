@@ -68,6 +68,9 @@
     <Compile Include="models\Elevator.cs" />
     <Compile Include="models\Person.cs" />
     <Compile Include="PythonCaller.cs" />
+    <Compile Include="Uc.xaml.cs">
+      <DependentUpon>Uc.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WdMain.xaml.cs">
       <DependentUpon>WdMain.xaml</DependentUpon>
     </Compile>
@@ -100,6 +103,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Uc.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="WdMain.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
