@@ -10,26 +10,38 @@ class floor:
 
 def core_algorithm(time, array_people):
     #初始化楼层对象(不太熟悉python语法，写的有点奇怪？
-    f = []
+    f1 = []                                 # 一号电梯对应的楼层，下同
+    for i in range(NUMBER_OF_FLOOR_LEVELS):
+        f.append(floor())
+    f2 = []
+    for i in range(NUMBER_OF_FLOOR_LEVELS):
+        f.append(floor())
+    f3 = []
     for i in range(NUMBER_OF_FLOOR_LEVELS):
         f.append(floor())
 
+    f = [f1,f2,f3]
+
 
     #初始化电梯对象
-    e = elevator(3.0,False)
+    e1 = elevator(3.0,0) #一号电梯，下同
+    e2 = elevator(3.0,0)
+    e3 = elevator(3.0,0)
+
+    e = [e1,e2,e3]
 
     
     #时间迭代    
     for t in range(time):
         for p in array_people:  #遍历人群
-        #分配到各个电梯的算法暂时不考虑，现在只实现一个电梯的情况
+
             
         #处理人群到达的事件
             if(p.come_time==t):   #这个人[第一次]出现，则加入到楼层中（第一次出现显然不会在电梯里，也不会完成乘坐
                 #更新人的状态
                 p.current_floor = p.from_floor #（看了下测试代码，感觉这里有些多余，不过还是保留在这里
 
-                
+                #分配到各个电梯的算法在这里
                 #更新楼层状态
                 f[from_floor].floor_people.append(p)        #将人添加到楼层中
                 if(p.to_floor > p.from_floor): #此人上行

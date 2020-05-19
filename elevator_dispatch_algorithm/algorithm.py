@@ -32,9 +32,9 @@ class elevator:
     current_floor = 3.0  # 现在的楼层,允许小数,每一秒都要进行精确更新.初始位置1楼
     move_direction = 0  # 移动方向,可取到0 1 2,分别是 停止 向上 向下
 
-    def __init__(self, current_floor, is_up):
+    def __init__(self, current_floor, move_direction):
         self.current_floor = current_floor  
-        self.is_up = is_up
+        self.move_direction = move_direction
 
     def to_json(self):
         dict_name_value = {}
