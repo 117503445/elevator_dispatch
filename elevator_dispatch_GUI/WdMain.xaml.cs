@@ -18,7 +18,7 @@ namespace elevator_dispatch_GUI
     /// </summary>
     public partial class WdMain : Window
     {
-
+        private int floorNum = 21;
         public WdMain()
         {
             InitializeComponent();
@@ -29,7 +29,8 @@ namespace elevator_dispatch_GUI
             Console.WriteLine(json);
             var algorithmResult = JsonConvert.DeserializeObject<AlgorithmOutput>(json);
 
-            for (int i = 0; i < 21; i++)
+            var TbFloors = new List<TextBlock>();//楼层告示
+            for (int i = 0; i < floorNum; i++)
             {
                 string s;
                 if (i <= 2)
@@ -46,9 +47,9 @@ namespace elevator_dispatch_GUI
                     Text = s,
                     FontSize = 16,
                     FontWeight = FontWeight.FromOpenTypeWeight(600)
-
                 };
                 Canvas.SetLeft(tb, 110 + i * 80);
+                TbFloors.Add(tb);
                 CvsMain.Children.Add(tb);
                 tempElements.Add(tb);
             }//生成楼层告示
@@ -88,38 +89,56 @@ namespace elevator_dispatch_GUI
                 UnigridElevators.Add(u);
                 tempElements.Add(u);
             }
-
+            var UnigridWait = new List<UniformGrid>();//等待区的 UniformGrid
+            for (int i = 0; i < floorNum; i++)
+            {
+                UniformGrid u = new UniformGrid
+                {
+                    Width = 80,
+                    Height = 112,
+                    Rows = 4,
+                    Columns = 3
+                };
+                //Canvas.SetTop(u, Canvas.GetTop(TbFloors[i]) + 80);
+                Canvas.SetTop(u, 40);
+                Canvas.SetLeft(u, Canvas.GetLeft(TbFloors[i]) - 30);
+                CvsMain.Children.Add(u);
+                UnigridWait.Add(u);
+                tempElements.Add(u);
+            }
             foreach (var person in algorithmResult.People)
             {
                 if (person.is_out == false)
                 {
+                    Grid nodeGrid = new Grid();
+
+                    Ellipse nodeCircle = new Ellipse
+                    {
+                        Fill = Brushes.Yellow,
+                        Stroke = Brushes.Black,
+                        Width = 20,
+                        Height = 20
+                    };
+
+                    TextBlock nodeText = new TextBlock
+                    {
+                        Text = person.to_floor.ToString(),
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        VerticalAlignment = VerticalAlignment.Center,
+                        TextAlignment = TextAlignment.Center,
+                        FontWeight = FontWeight.FromOpenTypeWeight(600)
+                    };
+
+                    nodeGrid.Children.Add(nodeCircle);
+                    nodeGrid.Children.Add(nodeText);
+                    tempElements.Add(nodeGrid);
                     if (person.in_which_elevator != 0)//在电梯中
                     {
-
-                        Grid nodeGrid = new Grid();
-
-                        Ellipse nodeCircle = new Ellipse
-                        {
-                            Fill = Brushes.Yellow,
-                            Stroke = Brushes.Black,
-                            Width = 20,
-                            Height = 20
-                        };
-
-                        TextBlock nodeText = new TextBlock
-                        {
-                            Text = person.to_floor.ToString(),
-                            HorizontalAlignment = HorizontalAlignment.Center,
-                            VerticalAlignment = VerticalAlignment.Center,
-                            TextAlignment = TextAlignment.Center,
-                            FontWeight = FontWeight.FromOpenTypeWeight(600)
-                        };
-
-                        nodeGrid.Children.Add(nodeCircle);
-                        nodeGrid.Children.Add(nodeText);
-
                         UnigridElevators[person.in_which_elevator - 1].Children.Add(nodeGrid);
-                        tempElements.Add(nodeGrid);
+                    }
+                    else
+                    {
+                        UnigridWait[person.from_floor].Children.Add(nodeGrid);
                     }
                 }
             }
@@ -141,11 +160,16 @@ namespace elevator_dispatch_GUI
             JsonToUI(output);
         }
 
-        private void BtnTest_Click(object sender, RoutedEventArgs e)
+        private void BtnTest1_Click(object sender, RoutedEventArgs e)
         {
             ClearUI();
         }
 
-
+        private void BtnTest2_Click(object sender, RoutedEventArgs e)
+        {
+            string cmd = $"python {PythonCaller.PathPythonFile}";
+            string output = CMDHelper.RunCmd(cmd);
+            JsonToUI(output);
+        }
     }
 }

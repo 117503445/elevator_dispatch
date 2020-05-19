@@ -9,6 +9,7 @@
     <Canvas x:Name="CvsMain">
         <TextBlock Canvas.Left="10" Canvas.Top="0" FontWeight="Bold" FontSize="18">楼层指示</TextBlock>
         <TextBlock Canvas.Left="18" Canvas.Top="98" FontSize="18" FontWeight="Bold">等待区</TextBlock>
-        <Button x:Name="BtnTest" Content="test" Width="75" Canvas.Left="7" Canvas.Top="140" Click="BtnTest_Click"/>
+        <Button x:Name="BtnTest1" Content="test1" Width="75" Canvas.Left="7" Canvas.Top="140" Click="BtnTest1_Click"/>
+        <Button x:Name="BtnTest2" Content="test2" Width="75" Canvas.Left="7" Canvas.Top="176" Click="BtnTest2_Click"/>
     </Canvas>
 </Window>
