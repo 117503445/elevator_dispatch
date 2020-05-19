@@ -50,9 +50,21 @@ def core_algorithm(time, array_people):
     # return [ [电梯1,电梯2,电梯3], [人1,人2....] ]
     pass
 
+class algorithm_result:
+    elevators=[]
+    people=[]
+    def to_json(self):
+        dict_name_value = {}
 
+        for name, value in vars(self).items():
+            dict_name_value[name] = value
+        return dict_name_value
 # 通过标准输入输出,供外部程序调用,还没有写
 if __name__ == "__main__":
     result = test.test2()
-    print(json.dumps(result, indent=4))
+    a=algorithm_result()
+    a.elevators=result[0]
+    a.people=result[1]
+    print(json.dumps(a, indent=4))
     # print(json.dumps(result, indent=4))
+

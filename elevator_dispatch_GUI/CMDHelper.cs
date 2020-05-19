@@ -43,6 +43,8 @@ namespace elevator_dispatch_GUI
                 string output = p.StandardOutput.ReadToEnd();
                 p.WaitForExit();//等待程序执行完退出进程
                 p.Close();
+                int index=output.IndexOf("exit");
+                output = output.Substring(index + 4);
                 return output;
             }
         }
