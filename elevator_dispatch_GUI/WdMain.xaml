@@ -5,18 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:elevator_dispatch_GUI"
         mc:Ignorable="d"
-        Title="WdMain" Height="600" Width="1800" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
+        Title="WdMain" Height="1000" Width="1800" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
     <Canvas x:Name="CvsMain">
-        <Button x:Name="BtnTest" Content="test" Width="75" Canvas.Left="662" Canvas.Top="29" Click="BtnTest_Click"/>
-        <Image Height="112" Width="80" Source="resource/elevator.jpg" Canvas.Left="145" Canvas.Top="196" Opacity="0.5">
-
-        </Image>
-        <UniformGrid Height="112" Width="80"  Canvas.Left="145" Canvas.Top="196" Rows="4" Columns="3" Panel.ZIndex="2">
-
-            <Grid >
-                <Ellipse Fill="Yellow" Stroke="Blue" Height="20" Width="20" HorizontalAlignment="Center"></Ellipse>
-                <TextBlock Text="18" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-            </Grid>
-        </UniformGrid>
+        <TextBlock Canvas.Left="10" Canvas.Top="0" FontWeight="Bold" FontSize="18">楼层指示</TextBlock>
+        <TextBlock Canvas.Left="18" Canvas.Top="98" FontSize="18" FontWeight="Bold">等待区</TextBlock>
+        <Button x:Name="BtnTest" Content="test" Width="75" Canvas.Left="7" Canvas.Top="140" Click="BtnTest_Click"/>
     </Canvas>
 </Window>

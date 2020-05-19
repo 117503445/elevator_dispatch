@@ -64,7 +64,7 @@
     </Compile>
     <Compile Include="CMDHelper.cs" />
     <Compile Include="CSUtil.cs" />
-    <Compile Include="models\AlgorithmResult.cs" />
+    <Compile Include="models\AlgorithmOutput.cs" />
     <Compile Include="models\Elevator.cs" />
     <Compile Include="models\Person.cs" />
     <Compile Include="PythonCaller.cs" />

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace elevator_dispatch_GUI.models
 {
-   public class AlgorithmResult
+   public class AlgorithmOutput
     {
         public Elevator[] Elevators { get; set; }
         public Person[] People { get; set; }
