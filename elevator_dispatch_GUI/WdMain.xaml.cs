@@ -10,6 +10,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TLib.Software;
 
 namespace elevator_dispatch_GUI
 {
@@ -18,7 +19,7 @@ namespace elevator_dispatch_GUI
     /// </summary>
     public partial class WdMain : Window
     {
-        private int floorNum = 21;
+        private const int floorNum = 21;
         public WdMain()
         {
             InitializeComponent();
@@ -27,6 +28,7 @@ namespace elevator_dispatch_GUI
         private void JsonToUI(string json)
         {
             Console.WriteLine(json);
+            Logger.WriteLine(json);
             var algorithmResult = JsonConvert.DeserializeObject<AlgorithmOutput>(json);
 
             var TbFloors = new List<TextBlock>();//楼层告示
@@ -156,6 +158,7 @@ namespace elevator_dispatch_GUI
             //Console.WriteLine(PythonCaller.PathPythonFile);
             string cmd = $"python {PythonCaller.PathPythonFile}";
             string output = CMDHelper.RunCmd(cmd);
+            Logger.WriteLine(output);
             //Console.WriteLine(output);
             JsonToUI(output);
         }

@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using TLib.Software;
 
 namespace elevator_dispatch_GUI
 {
@@ -13,5 +14,15 @@ namespace elevator_dispatch_GUI
     /// </summary>
     public partial class App : Application
     {
+        private void Application_Startup(object sender, StartupEventArgs e)
+        {
+            WpfExpectionHandler.HandleExpection(Current, AppDomain.CurrentDomain);
+            WpfExpectionHandler.ExpectionCatched += WpfExpectionHandler_ExpectionCatched;
+        }
+
+        private void WpfExpectionHandler_ExpectionCatched(object sender, Exception e)
+        {
+            MessageBox.Show("很抱歉发生了异常,请将err.json和log.txt发送给开发者");
+        }
     }
 }
