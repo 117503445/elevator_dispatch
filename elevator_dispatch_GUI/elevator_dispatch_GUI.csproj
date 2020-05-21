@@ -67,6 +67,7 @@
     </Compile>
     <Compile Include="CMDHelper.cs" />
     <Compile Include="CSUtil.cs" />
+    <Compile Include="models\AlgorithmInput.cs" />
     <Compile Include="models\AlgorithmOutput.cs" />
     <Compile Include="models\Elevator.cs" />
     <Compile Include="models\Person.cs" />

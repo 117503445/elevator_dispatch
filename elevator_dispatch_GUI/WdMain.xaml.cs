@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -155,10 +156,44 @@ namespace elevator_dispatch_GUI
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            Logger.IsOutputInConsole = true;
             //Console.WriteLine(PythonCaller.PathPythonFile);
+            //FileInfo info = new FileInfo(PythonCaller.PathPythonFile);
+            //string dir = info.DirectoryName;
+            //string path_in_json = dir + "/in.json";
+            string path_in_json = "in.json";
+            Random r = new Random();
+            AlgorithmInput algorithmInput = new AlgorithmInput
+            {
+                Time = 10,
+                People = new Person[9]
+            };
+
+            for (int i = 0; i < 3; i++)
+            {
+                int from = r.Next(3, 20);
+                int to = r.Next(3, 20);
+
+                for (int j = 0; j < 3; j++)
+                {
+                    Person p = new Person
+                    {
+                        from_floor = from,
+                        current_floor = from,
+                        come_time = i * 5 + 1,
+                        to_floor = to
+                    };
+                    algorithmInput.People[i * 3 + j] = p;
+                }
+            }
+            string json = JsonConvert.SerializeObject(algorithmInput);
+            //Console.WriteLine(json);
+            File.WriteAllText(path_in_json, json);
+
+            //Close();
             string cmd = $"python {PythonCaller.PathPythonFile}";
             string output = CMDHelper.RunCmd(cmd);
-            Logger.WriteLine(output);
+            //Logger.WriteLine(output);
             //Console.WriteLine(output);
             JsonToUI(output);
         }

@@ -9,6 +9,7 @@ namespace elevator_dispatch_GUI
 {
     public static class PythonCaller
     {
+        private const string filename = "algorithm_wrapper.py";
         private static string pathPythonFile;
 
         public static string PathPythonFile
@@ -37,7 +38,7 @@ namespace elevator_dispatch_GUI
                 var files = Directory.GetFiles(path);
                 foreach (var file in files)
                 {
-                    if (file.Contains("algorithm.py"))
+                    if (file.Contains(filename))
                     {
                         pathPythonFile = file;
                         return;
@@ -46,7 +47,7 @@ namespace elevator_dispatch_GUI
                 //ArrayPrint(files);
                 //ArrayPrint(Directory.GetDirectories(path));
             }
-            throw new FileNotFoundException("未找到 algorithm.py");
+            throw new FileNotFoundException($"未找到 {filename}");
         }
 
     }

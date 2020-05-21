@@ -3,7 +3,7 @@ import json
 from json import JSONEncoder
 import make_json_serializable  # 用于自定义对象的JSON
 
-import test
+import algorithm_test
 # 关于楼层编号:从地下3到地上18编号 0-20 一楼编号:3
 
 max_person = 12  # 电梯载客量
@@ -72,7 +72,7 @@ class algorithm_result:
 
 # 通过标准输入输出,供外部程序调用,还没有写
 if __name__ == "__main__":
-    result = test.test2()
+    result = algorithm_test.test2()
     a = algorithm_result()
     a.elevators = result[0]
     a.people = result[1]

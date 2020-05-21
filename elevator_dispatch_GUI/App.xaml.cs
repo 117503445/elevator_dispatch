@@ -16,8 +16,10 @@ namespace elevator_dispatch_GUI
     {
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+#if !DEBUG
             WpfExpectionHandler.HandleExpection(Current, AppDomain.CurrentDomain);
             WpfExpectionHandler.ExpectionCatched += WpfExpectionHandler_ExpectionCatched;
+#endif
         }
 
         private void WpfExpectionHandler_ExpectionCatched(object sender, Exception e)
