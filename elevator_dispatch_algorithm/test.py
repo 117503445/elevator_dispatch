@@ -96,15 +96,28 @@ def test2():
     # 1.0秒到7.0秒,共6秒,电梯上移三层,由3层到6层(还没有考虑进入电梯的时间)
     # 6.0秒到7.0秒,共1秒,电梯上移0.5层,由3层到3.5层
 
-    # 所以应该返回
-    person_1.current_floor = 6
-    person_1.in_which_elevator = 1
-    person_2.current_floor = 6
-    person_2.in_which_elevator = 1
-    person_3.current_floor = 6
-    person_3.in_which_elevator = 1
 
-    return [[elevator(6, 1), elevator(3, 1), elevator(3.5, 0)], [person_1, person_2, person_3, person_4, person_5]]
+# 第一秒：p1 p2 p3 到一楼 电梯开始上行
+# 第二秒：p1进电梯e2
+# 第三秒：p2进电梯e2
+# 第四秒：p3进电梯e2
+# 第五秒：电梯e2到3.5
+# 第六秒：电梯e2到4
+# 第七秒：p4 p5到二楼，p4进电梯e2
+
+    # 所以应该返回
+    person_1.current_floor = 4.0
+    person_1.in_which_elevator = 2
+    person_2.current_floor = 4.0
+    person_2.in_which_elevator = 2
+    person_3.current_floor = 4.0
+    person_3.in_which_elevator = 2
+    person_4.current_floor = 4.0
+    person_4.in_which_elevator = 2
+    person_5.current_floor = 4.0
+    person_4.in_which_elevator = 0
+
+    return [[elevator(3.0, 0), elevator(4.0, 1), elevator(3.0, 0)], [person_1, person_2, person_3, person_4, person_5]]
 
 
 def test3():
@@ -112,7 +125,7 @@ def test3():
     person_1.from_floor = 3
     person_1.to_floor = 12
     person_1.come_time = 1
-    person_1.current_floor = 3
+    person_1.current_floor = 3.0
     person_1.in_which_elevator = 0
     person_1.is_out = False
 
@@ -120,7 +133,7 @@ def test3():
     person_2.from_floor = 3
     person_2.to_floor = 12
     person_2.come_time = 1
-    person_2.current_floor = 3
+    person_2.current_floor = 3.0
     person_2.in_which_elevator = 0
     person_2.is_out = False
 
@@ -128,7 +141,7 @@ def test3():
     person_3.from_floor = 3
     person_3.to_floor = 12
     person_3.come_time = 1
-    person_3.current_floor = 3
+    person_3.current_floor = 3.0
     person_3.in_which_elevator = 0
     person_3.is_out = False
 
@@ -136,7 +149,7 @@ def test3():
     person_4.from_floor = 4
     person_4.to_floor = 6
     person_4.come_time = 6
-    person_4.current_floor = 3
+    person_4.current_floor = 4.0
     person_4.in_which_elevator = 0
     person_4.is_out = False
 
@@ -144,11 +157,11 @@ def test3():
     person_5.from_floor = 4
     person_5.to_floor = 6
     person_5.come_time = 6
-    person_5.current_floor = 3
+    person_5.current_floor = 4.0
     person_5.in_which_elevator = 0
     person_5.is_out = False
 
-    return 算法层实现.core_algorithm(20, [person_1, person_2, person_3, person_4, person_5])
+    return 算法层实现.core_algorithm(7, [person_1, person_2, person_3, person_4, person_5])
 
 
 if __name__ == "__main__":
