@@ -41,7 +41,8 @@ class elevator:
 
 
 class floor:
-    floor_people = []
+    floor_up_people = []
+    floor_down_people = []
     up_button = False #电梯上升按钮
     down_button = False #电梯下降按钮
 
@@ -96,10 +97,12 @@ def core_algorithm(time, array_people):
                         temp1 = 1
                     
                 #更新楼层状态
-                f[temp1][p.from_floor].floor_people.append(p)        #将人添加到楼层中
+
                 if(p.to_floor > p.from_floor): #此人上行
+                    f[temp1][p.from_floor].floor_up_people.append(p)  # 将人添加到楼层中
                     f[temp1][p.from_floor].up_button = True #按下上行按钮
                 else:
+                    f[temp1][p.from_floor].floor_down_people.append(p)  # 将人添加到楼层中
                     f[temp1][p.from_floor].down_button = True #按下下行按钮 (to_floor==from_floor的情况感觉很麻烦，最好不要出现...
         #人群到达事件处理完毕
 
@@ -157,9 +160,9 @@ def core_algorithm(time, array_people):
 
                     if(f[i][int(e[i].current_floor)].up_button == True): #这层楼有人需要上行
 
-                        f[i][int(e[i].current_floor)].floor_people[0].in_which_elevator = i+1 #加入电梯中
-                        f[i][int(e[i].current_floor)].floor_people.pop(0)
-                        if(len(f[i][int(e[i].current_floor)].floor_people) == 0):
+                        f[i][int(e[i].current_floor)].floor_up_people[0].in_which_elevator = i+1 #加入电梯中
+                        f[i][int(e[i].current_floor)].floor_up_people.pop(0)
+                        if(len(f[i][int(e[i].current_floor)].floor_up_people) == 0):
                             f[i][int(e[i].current_floor)].up_button = False #人已经全部进入电梯，楼层上行灯灭
                         continue
 
@@ -204,9 +207,9 @@ def core_algorithm(time, array_people):
 
                     if(f[i][int(e[i].current_floor)].down_button == True): #这层楼有人需要下行
 
-                        f[i][int(e[i].current_floor)].floor_people[0].in_which_elevator = i+1 #加入电梯中
-                        f[i][int(e[i].current_floor)].floor_people.pop(0)
-                        if(len(f[i][int(e[i].current_floor)].floor_people) == 0):
+                        f[i][int(e[i].current_floor)].floor_down_people[0].in_which_elevator = i+1 #加入电梯中
+                        f[i][int(e[i].current_floor)].floor_down_people.pop(0)
+                        if(len(f[i][int(e[i].current_floor)].floor_down_people) == 0):
                             f[i][int(e[i].current_floor)].down_button = False #人已经全部进入电梯，楼层下行灯灭
                         continue
 
