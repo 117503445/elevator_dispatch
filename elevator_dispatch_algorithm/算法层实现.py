@@ -156,7 +156,7 @@ def core_algorithm(time, array_people):
                         f[i][int(e[i].current_floor)].floor_people[0].in_which_elevator = i+1 #加入电梯中
                         f[i][int(e[i].current_floor)].floor_people.pop(0)
                         if(len(f[i][int(e[i].current_floor)].floor_people) == 0):
-                            f[i][int(e[i].current_floor)].up_button == False #人已经全部进入电梯，楼层上行灯灭
+                            f[i][int(e[i].current_floor)].up_button = False #人已经全部进入电梯，楼层上行灯灭
                         break
 
                     if(sum_of_people > 0):  #电梯里还有人，继续上行
@@ -199,7 +199,7 @@ def core_algorithm(time, array_people):
                         f[i][int(e[i].current_floor)].floor_people[0].in_which_elevator = i+1 #加入电梯中
                         f[i][int(e[i].current_floor)].floor_people.pop(0)
                         if(len(f[i][int(e[i].current_floor)].floor_people) == 0):
-                            f[i][int(e[i].current_floor)].down_button == False #人已经全部进入电梯，楼层下行灯灭
+                            f[i][int(e[i].current_floor)].down_button = False #人已经全部进入电梯，楼层下行灯灭
                         break
 
                     if(sum_of_people > 0):  #电梯里还有人，继续下行
