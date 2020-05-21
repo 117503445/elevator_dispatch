@@ -1,5 +1,5 @@
-from algorithm import *
-import 算法层实现
+from algorithm_interface import *
+import algorithm_implement
 # 测试算法
 
 
@@ -161,7 +161,7 @@ def test3():
     person_5.in_which_elevator = 0
     person_5.is_out = False
 
-    return 算法层实现.core_algorithm(7, [person_1, person_2, person_3, person_4, person_5])
+    return algorithm_implement.core_algorithm(7, [person_1, person_2, person_3, person_4, person_5])
 
 
 if __name__ == "__main__":
