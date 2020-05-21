@@ -31,8 +31,10 @@ class person:  # 人
             dict_name_value[name] = value
         return dict_name_value
 # 电梯
-# 电梯0可以停靠所有楼层,电梯1单到单,电梯2双到双
-
+# e1:只停单层，e2:只停双数层(包括1层)，e3:全停
+# 单:index=0 2 3 5 7 9 ..
+# 双:index=1 4 6 8 ..
+# index=3为F1,3个电梯都可以停
 
 class elevator:
     current_floor = 3.0  # 现在的楼层,允许小数,每一秒都要进行精确更新.初始位置1楼

@@ -19,7 +19,7 @@ class person:  # 人
             dict_name_value[name] = value
         return dict_name_value
 # 电梯
-# 电梯0可以停靠所有楼层,电梯1单到单,电梯2双到双
+# e1:只停单层，e2:只停双数层(包括1层)，e3:全停
 
 
 class elevator:
