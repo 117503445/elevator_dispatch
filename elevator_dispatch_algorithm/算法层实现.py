@@ -70,7 +70,7 @@ def core_algorithm(time, array_people):
 
     
     #时间迭代    
-    for t in range(time):
+    for t in range(1,time+1):
         for p in array_people:  #遍历人群
 
             
