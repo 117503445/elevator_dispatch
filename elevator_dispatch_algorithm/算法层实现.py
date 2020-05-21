@@ -50,13 +50,13 @@ def core_algorithm(time, array_people):
     #初始化楼层对象(不太熟悉python语法，写的有点奇怪？
     f1 = []                                 # 一号电梯对应的楼层，下同
     for i in range(NUMBER_OF_FLOOR_LEVELS):
-        f.append(floor())
+        f1.append(floor())
     f2 = []
     for i in range(NUMBER_OF_FLOOR_LEVELS):
-        f.append(floor())
+        f2.append(floor())
     f3 = []
     for i in range(NUMBER_OF_FLOOR_LEVELS):
-        f.append(floor())
+        f3.append(floor())
 
     f = [f1,f2,f3]              #f1:只停单层，f2:只停双数层(包括1层)，f3:全停
 
@@ -98,117 +98,117 @@ def core_algorithm(time, array_people):
                 #更新楼层状态
                 f[temp1][p.from_floor].floor_people.append(p)        #将人添加到楼层中
                 if(p.to_floor > p.from_floor): #此人上行
-                    f[temp1][from_floor].up_buttom = True #按下上行按钮
+                    f[temp1][p.from_floor].up_button = True #按下上行按钮
                 else:
-                    f[temp1][from_floor].down_buttom = True #按下下行按钮 (to_floor==from_floor的情况感觉很麻烦，最好不要出现...
+                    f[temp1][p.from_floor].down_button = True #按下下行按钮 (to_floor==from_floor的情况感觉很麻烦，最好不要出现...
         #人群到达事件处理完毕
 
 
 
-    #下面根据电梯运行情况分类处理
-    #
-    for i in [0,1,2]:
-        if(e[i].move_direction == 0): #电梯静止
-            for j in range(NUMBER_OF_FLOOR_LEVELS):
-                if(f[i][j].up_button == True or f[i][j].down_botton == True):
-                    if(j > e[i].current_floor): #楼上有人，电梯上行
-                        e[i].move_direction = 1
-                        break
-                    elif(j < e[i].current_floor): #楼下有人，电梯下行
-                        e[i].move_direction = 2
-                        break
-                    else: #本层有人，由此人上行还是下行而定
-                        if(f[i][j].down_botton == True):
-                            e[i].move_direction = 2
-                        else:
+        #下面根据电梯运行情况分类处理
+        #
+        for i in [0,1,2]:
+            if(e[i].move_direction == 0): #电梯静止
+                for j in range(NUMBER_OF_FLOOR_LEVELS):
+                    if(f[i][j].up_button == True or f[i][j].down_button == True):
+                        if(j > e[i].current_floor): #楼上有人，电梯上行
                             e[i].move_direction = 1
-                        
-                    
-        elif(e[i].move_direction == 1): #电梯上行
-            if(e[i].current_floor % 1 != 0): #电梯未与楼层对齐
-                e[i].current_floor += elevator_speed    #向上半层(用时一秒)
-                for p in array_people:  #更新所有乘客状态
-                    if(p.in_which_elevator == i+1):
-                        p.current_floor = e[i].current_floor   
-            else: #电梯对齐某一楼层
-                #电梯里有人到达目标楼层
-                for p in array_people:
-                    if(p.in_which_elevator==i+1 and p.to_floor==e[i].current_floor):
-                        p.in_which_elevator = 0
-                        p.is_out = True
-                        break
+                            break
+                        elif(j < e[i].current_floor): #楼下有人，电梯下行
+                            e[i].move_direction = 2
+                            break
+                        else: #本层有人，由此人上行还是下行而定
+                            if(f[i][j].down_button == True):
+                                e[i].move_direction = 2
+                            else:
+                                e[i].move_direction = 1
 
-                    
-                #处理电梯人满的情况
-                sum_of_people = 0
-                for p in array_people:
-                    if(p.in_which_elevator == i+1):
-                        sum_of_people += 1
-                if(sum_of_people == max_person): #人满，电梯向上
+
+            elif(e[i].move_direction == 1): #电梯上行
+                if(e[i].current_floor % 1 != 0): #电梯未与楼层对齐
                     e[i].current_floor += elevator_speed    #向上半层(用时一秒)
                     for p in array_people:  #更新所有乘客状态
                         if(p.in_which_elevator == i+1):
                             p.current_floor = e[i].current_floor
-                    break #结束这一秒
-                    
-                if(f[i][current_floor].up_button == True): #这层楼有人需要上行  
-                    
-                    f[i][current_floor].floor_people[0].in_which_elevator = i+1 #加入电梯中
-                    f[i][current_floor].floor_people.pop(0)
-                    if(len(f[i][current_floor]) == 0):
-                        f[i][current_floor].up_button == False #人已经全部进入电梯，楼层上行灯灭
-                    break
+                else: #电梯对齐某一楼层
+                    #电梯里有人到达目标楼层
+                    for p in array_people:
+                        if(p.in_which_elevator==i+1 and p.to_floor==e[i].current_floor):
+                            p.in_which_elevator = 0
+                            p.is_out = True
+                            break
 
-                if(sum_of_people > 0):  #电梯里还有人，继续上行
-                    e[i].current_floor += elevator_speed    #向上半层(用时一秒)
-                    for p in array_people:  #更新所有乘客状态
+
+                    #处理电梯人满的情况
+                    sum_of_people = 0
+                    for p in array_people:
                         if(p.in_which_elevator == i+1):
-                            p.current_floor = e[i].current_floor
-                elif(sum_of_people == 0): #电梯内无人，电梯静止(下一秒遍历楼层找人
-                    e[i].move_direction = 0
-                    
-        elif(e[i].move_direction == 2): #电梯下行
-            if(e[i].current_floor % 1 != 0): #电梯未与楼层对齐
-                e[i].current_floor -= elevator_speed    #向下半层(用时一秒)
-                for p in array_people:  #更新所有乘客状态
-                    if(p.in_which_elevator == i+1):
-                        p.current_floor = e[i].current_floor   
-            else: #电梯对齐某一楼层
-                #电梯里有人到达目标楼层
-                for p in array_people:
-                    if(p.in_which_elevator==i+1 and p.to_floor==e[i].current_floor):
-                        p.in_which_elevator = 0
-                        p.is_out = True
+                            sum_of_people += 1
+                    if(sum_of_people == max_person): #人满，电梯向上
+                        e[i].current_floor += elevator_speed    #向上半层(用时一秒)
+                        for p in array_people:  #更新所有乘客状态
+                            if(p.in_which_elevator == i+1):
+                                p.current_floor = e[i].current_floor
+                        break #结束这一秒
+
+                    if(f[i][int(e[i].current_floor)].up_button == True): #这层楼有人需要上行
+
+                        f[i][int(e[i].current_floor)].floor_people[0].in_which_elevator = i+1 #加入电梯中
+                        f[i][int(e[i].current_floor)].floor_people.pop(0)
+                        if(len(f[i][int(e[i].current_floor)].floor_people) == 0):
+                            f[i][int(e[i].current_floor)].up_button == False #人已经全部进入电梯，楼层上行灯灭
                         break
 
-                    
-                #处理电梯人满的情况
-                sum_of_people = 0
-                for p in array_people:
-                    if(p.in_which_elevator == i+1):
-                        sum_of_people += 1
-                if(sum_of_people == max_person): #人满，电梯向下
-                    e[i].current_floor -= elevator_speed    #向下半层(用时一秒)
-                    for p in array_people:  #更新所有乘客状态
-                        if(p.in_which_elevator == i+1):
-                            p.current_floor = e[i].current_floor
-                    break #结束这一秒
-                    
-                if(f[i][current_floor].down_button == True): #这层楼有人需要下行  
-                    
-                    f[i][current_floor].floor_people[0].in_which_elevator = i+1 #加入电梯中
-                    f[i][current_floor].floor_people.pop(0)
-                    if(len(f[i][current_floor]) == 0):
-                        f[i][current_floor].down_button == False #人已经全部进入电梯，楼层下行灯灭
-                    break
+                    if(sum_of_people > 0):  #电梯里还有人，继续上行
+                        e[i].current_floor += elevator_speed    #向上半层(用时一秒)
+                        for p in array_people:  #更新所有乘客状态
+                            if(p.in_which_elevator == i+1):
+                                p.current_floor = e[i].current_floor
+                    elif(sum_of_people == 0): #电梯内无人，电梯静止(下一秒遍历楼层找人
+                        e[i].move_direction = 0
 
-                if(sum_of_people > 0):  #电梯里还有人，继续下行
+            elif(e[i].move_direction == 2): #电梯下行
+                if(e[i].current_floor % 1 != 0): #电梯未与楼层对齐
                     e[i].current_floor -= elevator_speed    #向下半层(用时一秒)
                     for p in array_people:  #更新所有乘客状态
                         if(p.in_which_elevator == i+1):
                             p.current_floor = e[i].current_floor
-                elif(sum_of_people == 0): #电梯内无人，电梯静止(下一秒遍历楼层找人
-                    e[i].move_direction = 0
+                else: #电梯对齐某一楼层
+                    #电梯里有人到达目标楼层
+                    for p in array_people:
+                        if(p.in_which_elevator==i+1 and p.to_floor==e[i].current_floor):
+                            p.in_which_elevator = 0
+                            p.is_out = True
+                            break
+
+
+                    #处理电梯人满的情况
+                    sum_of_people = 0
+                    for p in array_people:
+                        if(p.in_which_elevator == i+1):
+                            sum_of_people += 1
+                    if(sum_of_people == max_person): #人满，电梯向下
+                        e[i].current_floor -= elevator_speed    #向下半层(用时一秒)
+                        for p in array_people:  #更新所有乘客状态
+                            if(p.in_which_elevator == i+1):
+                                p.current_floor = e[i].current_floor
+                        break #结束这一秒
+
+                    if(f[i][int(e[i].current_floor)].down_button == True): #这层楼有人需要下行
+
+                        f[i][int(e[i].current_floor)].floor_people[0].in_which_elevator = i+1 #加入电梯中
+                        f[i][int(e[i].current_floor)].floor_people.pop(0)
+                        if(len(f[i][int(e[i].current_floor)].floor_people) == 0):
+                            f[i][int(e[i].current_floor)].down_button == False #人已经全部进入电梯，楼层下行灯灭
+                        break
+
+                    if(sum_of_people > 0):  #电梯里还有人，继续下行
+                        e[i].current_floor -= elevator_speed    #向下半层(用时一秒)
+                        for p in array_people:  #更新所有乘客状态
+                            if(p.in_which_elevator == i+1):
+                                p.current_floor = e[i].current_floor
+                    elif(sum_of_people == 0): #电梯内无人，电梯静止(下一秒遍历楼层找人
+                        e[i].move_direction = 0
                 
         
     return [[e1,e2,e3],array_people]
