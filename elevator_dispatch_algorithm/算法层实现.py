@@ -4,6 +4,41 @@ NUMBER_OF_FLOOR_LEVELS = 21
 max_person = 12  # 电梯载客量
 elevator_speed = 0.5  # 电梯速度,每秒0.5层
 
+class person:  # 人
+    come_time = 0  # 出现的时间
+    from_floor = 0  # 出发楼层
+    to_floor = 0  # 到达楼层
+    current_floor = 0  # 现在的楼层
+    in_which_elevator = 0  # 在哪个电梯中,可取 0 1 2 3 分别指不在电梯中 在第一个电梯中 在第二个电梯中 在第三个电梯中
+    is_out = False  # 是否已经完成电梯乘坐
+
+    def to_json(self):
+        dict_name_value = {}
+
+        for name, value in vars(self).items():
+            dict_name_value[name] = value
+        return dict_name_value
+# 电梯
+# 电梯0可以停靠所有楼层,电梯1单到单,电梯2双到双
+
+
+class elevator:
+    current_floor = 3.0  # 现在的楼层,允许小数,每一秒都要进行精确更新.初始位置1楼
+    move_direction = 0  # 移动方向,可取到0 1 2,分别是 停止 向上 向下
+
+    def __init__(self, current_floor, move_direction):
+        self.current_floor = current_floor  
+        self.move_direction = move_direction
+
+    def to_json(self):
+        dict_name_value = {}
+
+        for name, value in vars(self).items():
+            dict_name_value[name] = value
+        return dict_name_value
+# 核心算法:顺向截停
+# 对输入人群数组,不应假设每个人的出现时间都是1 6 11 ... 而可能是任意整数时间点(不方便的话再进行沟通),不应假设come_time<=t
+
 
 class floor:
     floor_people = []
@@ -74,7 +109,7 @@ def core_algorithm(time, array_people):
     #
     for i in [0,1,2]:
         if(e[i].move_direction == 0): #电梯静止
-            for(j in range(NUMBER_OF_FLOOR_LEVELS)):
+            for j in range(NUMBER_OF_FLOOR_LEVELS):
                 if(f[i][j].up_button == True or f[i][j].down_botton == True):
                     if(j > e[i].current_floor): #楼上有人，电梯上行
                         e[i].move_direction = 1
