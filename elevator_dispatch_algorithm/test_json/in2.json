@@ -1,0 +1,77 @@
+{
+    "Time": 10,
+    "People": [
+        {
+            "come_time": 1,
+            "from_floor": 18,
+            "to_floor": 5,
+            "current_floor": 18,
+            "in_which_elevator": 0,
+            "is_out": false
+        },
+        {
+            "come_time": 1,
+            "from_floor": 18,
+            "to_floor": 5,
+            "current_floor": 18,
+            "in_which_elevator": 0,
+            "is_out": false
+        },
+        {
+            "come_time": 1,
+            "from_floor": 18,
+            "to_floor": 5,
+            "current_floor": 18,
+            "in_which_elevator": 0,
+            "is_out": false
+        },
+        {
+            "come_time": 6,
+            "from_floor": 17,
+            "to_floor": 6,
+            "current_floor": 17,
+            "in_which_elevator": 0,
+            "is_out": false
+        },
+        {
+            "come_time": 6,
+            "from_floor": 17,
+            "to_floor": 6,
+            "current_floor": 17,
+            "in_which_elevator": 0,
+            "is_out": false
+        },
+        {
+            "come_time": 6,
+            "from_floor": 17,
+            "to_floor": 6,
+            "current_floor": 17,
+            "in_which_elevator": 0,
+            "is_out": false
+        },
+        {
+            "come_time": 11,
+            "from_floor": 9,
+            "to_floor": 13,
+            "current_floor": 9,
+            "in_which_elevator": 0,
+            "is_out": false
+        },
+        {
+            "come_time": 11,
+            "from_floor": 9,
+            "to_floor": 13,
+            "current_floor": 9,
+            "in_which_elevator": 0,
+            "is_out": false
+        },
+        {
+            "come_time": 11,
+            "from_floor": 9,
+            "to_floor": 13,
+            "current_floor": 9,
+            "in_which_elevator": 0,
+            "is_out": false
+        }
+    ]
+}

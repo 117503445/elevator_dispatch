@@ -3,10 +3,6 @@ import algorithm_implement
 import json
 import make_json_serializable  # 用于自定义对象的JSON
 
-class algorithm_input:
-    Time = 0
-    People = []
-
 
 class algorithm_result:
     elevators = []
@@ -36,7 +32,6 @@ if __name__ == "__main__":
         person.is_out = p['is_out']
 
         people.append(person)
-    print(len(people))
     result = algorithm_implement.core_algorithm(t, people)
     r = algorithm_result()
     r.elevators = result[0]

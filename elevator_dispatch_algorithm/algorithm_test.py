@@ -1,5 +1,7 @@
 from algorithm_interface import *
 import algorithm_implement
+import os
+import file_util
 # 测试算法
 
 
@@ -164,7 +166,7 @@ def test3():
     return algorithm_implement.core_algorithm(7, [person_1, person_2, person_3, person_4, person_5])
 
 
-if __name__ == "__main__":
+def py_test():
     print('test2_is')
     result2 = test2()
     r2 = algorithm_result()
@@ -185,3 +187,33 @@ if __name__ == "__main__":
         print('test success')
     else:
         print('test failed')
+
+
+if __name__ == "__main__":
+    path_json_files = os.listdir('test_json')
+    print(path_json_files)
+    file_name = input('please input test file name like in1\n')
+    path_json = f'test_json/{file_name}.json'
+    print(path_json)
+
+    js = file_util.read_all_text(path_json)
+    js = json.loads(js)
+    t = js['Time']
+
+    people = []
+    for p in js['People']:
+        person = algorithm_implement.person()
+        person.come_time = p['come_time']
+        person.from_floor = p['from_floor']
+        person.to_floor = p['to_floor']
+        person.current_floor = p['current_floor']
+        person.in_which_elevator = p['in_which_elevator']
+        person.is_out = p['is_out']
+
+        people.append(person)
+    result = algorithm_implement.core_algorithm(t, people)
+    r = algorithm_result()
+    r.elevators = result[0]
+    r.people = result[1]
+    r_json = json.dumps(r, indent=4)
+    print(r_json)
