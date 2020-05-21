@@ -192,8 +192,8 @@ def py_test():
 if __name__ == "__main__":
     path_json_files = os.listdir('test_json')
     print(path_json_files)
-    file_name = input('please input test file name like in1\n')
-    path_json = f'test_json/{file_name}.json'
+    file_name = input('please input test file name like 1\n')
+    path_json = f'test_json/in{file_name}.json'
     print(path_json)
 
     js = file_util.read_all_text(path_json)
@@ -217,3 +217,12 @@ if __name__ == "__main__":
     r.people = result[1]
     r_json = json.dumps(r, indent=4)
     print(r_json)
+
+    path_out_json = path_json.replace('in', 'out')
+    if os.path.exists(path_out_json):
+        print(f'find {path_out_json}')
+        out_json = file_util.read_all_text(path_out_json)
+        if out_json == r_json:
+            print('test success')
+        else:
+            print('test failed')

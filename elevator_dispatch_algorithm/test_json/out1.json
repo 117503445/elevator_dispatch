@@ -1,0 +1,58 @@
+{
+    "elevators": [
+        {
+            "current_floor": 3.0,
+            "move_direction": 0
+        },
+        {
+            "current_floor": 4.0,
+            "move_direction": 1
+        },
+        {
+            "current_floor": 3.0,
+            "move_direction": 0
+        }
+    ],
+    "people": [
+        {
+            "come_time": 1,
+            "from_floor": 3,
+            "to_floor": 12,
+            "current_floor": 4.0,
+            "in_which_elevator": 2,
+            "is_out": false
+        },
+        {
+            "come_time": 1,
+            "from_floor": 3,
+            "to_floor": 12,
+            "current_floor": 4.0,
+            "in_which_elevator": 2,
+            "is_out": false
+        },
+        {
+            "come_time": 1,
+            "from_floor": 3,
+            "to_floor": 12,
+            "current_floor": 4.0,
+            "in_which_elevator": 2,
+            "is_out": false
+        },
+        {
+            "come_time": 6,
+            "from_floor": 4,
+            "to_floor": 6,
+            "current_floor": 4,
+            "in_which_elevator": 2,
+            "is_out": false
+        },
+        {
+            "come_time": 6,
+            "from_floor": 4,
+            "to_floor": 6,
+            "current_floor": 4,
+            "in_which_elevator": 0,
+            "is_out": false
+        }
+    ]
+}
