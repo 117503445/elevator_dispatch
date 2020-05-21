@@ -113,10 +113,10 @@ def core_algorithm(time, array_people):
                     if(f[i][j].up_button == True or f[i][j].down_button == True):
                         if(j > e[i].current_floor): #楼上有人，电梯上行
                             e[i].move_direction = 1
-                            break
+                            continue
                         elif(j < e[i].current_floor): #楼下有人，电梯下行
                             e[i].move_direction = 2
-                            break
+                            continue
                         else: #本层有人，由此人上行还是下行而定
                             if(f[i][j].down_button == True):
                                 e[i].move_direction = 2
@@ -132,11 +132,15 @@ def core_algorithm(time, array_people):
                             p.current_floor = e[i].current_floor
                 else: #电梯对齐某一楼层
                     #电梯里有人到达目标楼层
+                    jump_flag = 0
                     for p in array_people:
                         if(p.in_which_elevator==i+1 and p.to_floor==e[i].current_floor):
                             p.in_which_elevator = 0
                             p.is_out = True
+                            jump_flag = 1
                             break
+                    if(jump_flag == 1):
+                        continue
 
 
                     #处理电梯人满的情况
@@ -149,7 +153,7 @@ def core_algorithm(time, array_people):
                         for p in array_people:  #更新所有乘客状态
                             if(p.in_which_elevator == i+1):
                                 p.current_floor = e[i].current_floor
-                        break #结束这一秒
+                        continue #结束这一秒
 
                     if(f[i][int(e[i].current_floor)].up_button == True): #这层楼有人需要上行
 
@@ -157,7 +161,7 @@ def core_algorithm(time, array_people):
                         f[i][int(e[i].current_floor)].floor_people.pop(0)
                         if(len(f[i][int(e[i].current_floor)].floor_people) == 0):
                             f[i][int(e[i].current_floor)].up_button = False #人已经全部进入电梯，楼层上行灯灭
-                        break
+                        continue
 
                     if(sum_of_people > 0):  #电梯里还有人，继续上行
                         e[i].current_floor += elevator_speed    #向上半层(用时一秒)
@@ -175,11 +179,15 @@ def core_algorithm(time, array_people):
                             p.current_floor = e[i].current_floor
                 else: #电梯对齐某一楼层
                     #电梯里有人到达目标楼层
+                    jump_flag = 0
                     for p in array_people:
                         if(p.in_which_elevator==i+1 and p.to_floor==e[i].current_floor):
                             p.in_which_elevator = 0
                             p.is_out = True
+                            jump_flag = 1
                             break
+                    if(jump_flag == 1):
+                        continue
 
 
                     #处理电梯人满的情况
@@ -192,7 +200,7 @@ def core_algorithm(time, array_people):
                         for p in array_people:  #更新所有乘客状态
                             if(p.in_which_elevator == i+1):
                                 p.current_floor = e[i].current_floor
-                        break #结束这一秒
+                        continue #结束这一秒
 
                     if(f[i][int(e[i].current_floor)].down_button == True): #这层楼有人需要下行
 
@@ -200,7 +208,7 @@ def core_algorithm(time, array_people):
                         f[i][int(e[i].current_floor)].floor_people.pop(0)
                         if(len(f[i][int(e[i].current_floor)].floor_people) == 0):
                             f[i][int(e[i].current_floor)].down_button = False #人已经全部进入电梯，楼层下行灯灭
-                        break
+                        continue
 
                     if(sum_of_people > 0):  #电梯里还有人，继续下行
                         e[i].current_floor -= elevator_speed    #向下半层(用时一秒)

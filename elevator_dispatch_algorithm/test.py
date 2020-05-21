@@ -148,7 +148,7 @@ def test3():
     person_5.in_which_elevator = 0
     person_5.is_out = False
 
-    return 算法层实现.core_algorithm(7, [person_1, person_2, person_3, person_4, person_5])
+    return 算法层实现.core_algorithm(20, [person_1, person_2, person_3, person_4, person_5])
 
 
 if __name__ == "__main__":
