@@ -191,7 +191,10 @@ def py_test():
 
 if __name__ == "__main__":
     path_json_files = os.listdir('test_json')
-    print(path_json_files)
+    for path in path_json_files:
+        if 'in' in path:
+            print(path, end=' ')
+    print()
     file_name = input('please input test file name like 1\n')
     path_json = f'test_json/in{file_name}.json'
     print(path_json)
