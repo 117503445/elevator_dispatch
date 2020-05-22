@@ -11,6 +11,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using TLib.Software;
 
 namespace elevator_dispatch_GUI
@@ -26,6 +27,17 @@ namespace elevator_dispatch_GUI
             InitializeComponent();
         }
         private readonly List<FrameworkElement> tempElements = new List<FrameworkElement>();
+        private int IndexToFloor(int index)
+        {
+            if (index <= 2)
+            {
+                return index - 3;
+            }
+            else
+            {
+                return index - 2;
+            }
+        }
         private void JsonToUI(string json)
         {
             Console.WriteLine(json);
@@ -35,16 +47,8 @@ namespace elevator_dispatch_GUI
             var TbFloors = new List<TextBlock>();//楼层告示
             for (int i = 0; i < floorNum; i++)
             {
-                string s;
-                if (i <= 2)
-                {
-                    s = $"{i - 3}F";
-                }
-                else
-                {
-                    s = $"{i - 2}F";
+                string s=$"{IndexToFloor(i)}F";
 
-                }
                 TextBlock tb = new TextBlock
                 {
                     Text = s,
@@ -111,7 +115,7 @@ namespace elevator_dispatch_GUI
             }
             foreach (var person in algorithmResult.People)
             {
-                if (person.is_out == false)
+                if (person.is_out == false && algorithmInput.Time >= person.come_time)
                 {
                     Grid nodeGrid = new Grid();
 
@@ -125,7 +129,7 @@ namespace elevator_dispatch_GUI
 
                     TextBlock nodeText = new TextBlock
                     {
-                        Text = person.to_floor.ToString(),
+                        Text = IndexToFloor(person.to_floor).ToString(),
                         HorizontalAlignment = HorizontalAlignment.Center,
                         VerticalAlignment = VerticalAlignment.Center,
                         TextAlignment = TextAlignment.Center,
@@ -154,16 +158,13 @@ namespace elevator_dispatch_GUI
             }
             tempElements.Clear();
         }
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+
+        private readonly string path_in_json = "in.json";
+        private readonly Random r = new Random();
+        private AlgorithmInput algorithmInput;
+        private void SetAlgorithmInput()
         {
-            Logger.IsOutputInConsole = true;
-            //Console.WriteLine(PythonCaller.PathPythonFile);
-            //FileInfo info = new FileInfo(PythonCaller.PathPythonFile);
-            //string dir = info.DirectoryName;
-            //string path_in_json = dir + "/in.json";
-            string path_in_json = "in.json";
-            Random r = new Random();
-            AlgorithmInput algorithmInput = new AlgorithmInput
+            algorithmInput = new AlgorithmInput
             {
                 Time = 10,
                 People = new Person[9]
@@ -186,6 +187,14 @@ namespace elevator_dispatch_GUI
                     algorithmInput.People[i * 3 + j] = p;
                 }
             }
+        }
+
+        private void TimerUpdateUI_Tick(object sender, EventArgs e)
+        {
+            var timer = sender as DispatcherTimer;
+            TbTime.Text = $"当前时间:第{(int)timer.Tag}秒";
+            ClearUI();
+            algorithmInput.Time = (int)timer.Tag;
             string json = JsonConvert.SerializeObject(algorithmInput);
             //Console.WriteLine(json);
             File.WriteAllText(path_in_json, json);
@@ -195,7 +204,30 @@ namespace elevator_dispatch_GUI
             string output = CMDHelper.RunCmd(cmd);
             //Logger.WriteLine(output);
             //Console.WriteLine(output);
+            if (string.IsNullOrWhiteSpace(output))
+            {
+                MessageBox.Show($"发生异常!输入为{json}");
+            }
             JsonToUI(output);
+            timer.Tag = (int)timer.Tag + 1;
+            Console.WriteLine(timer.Tag);
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            Logger.IsOutputInConsole = true;
+            //Console.WriteLine(PythonCaller.PathPythonFile);
+            //FileInfo info = new FileInfo(PythonCaller.PathPythonFile);
+            //string dir = info.DirectoryName;
+            //string path_in_json = dir + "/in.json";
+            SetAlgorithmInput();
+            DispatcherTimer TimerUpdateUI = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromMilliseconds(500),
+                Tag = 0
+            };
+            TimerUpdateUI.Tick += TimerUpdateUI_Tick;
+            TimerUpdateUI.Start();
         }
 
         private void BtnTest1_Click(object sender, RoutedEventArgs e)

@@ -12,7 +12,7 @@ namespace elevator_dispatch_GUI.models
         public int come_time { get; set; }
         public int from_floor { get; set; }
         public int to_floor { get; set; }
-        public int current_floor { get; set; }
+        public double current_floor { get; set; }
         public int in_which_elevator { get; set; } = 0;
         public bool is_out { get; set; } = false;
     }
