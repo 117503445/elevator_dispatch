@@ -172,7 +172,19 @@ def core_algorithm(time, array_people):
                             if(p.in_which_elevator == i+1):
                                 p.current_floor = e[i].current_floor
                     elif(sum_of_people == 0): #电梯内无人，电梯静止(下一秒遍历楼层找人
-                        e[i].move_direction = 0
+                        jump_flag = 0
+                        for j in f[i][int(e[i].current_floor):-1]:
+                            if(j.up_button == True or j.down_button == True):
+                                e[i].current_floor += elevator_speed  # 向上半层(用时一秒)
+                                for p in array_people:  # 更新所有乘客状态
+                                    if (p.in_which_elevator == i + 1):
+                                        p.current_floor = e[i].current_floor
+                                jump_flag = 1
+                                break
+                        if(jump_flag == 1):
+                            continue
+                        else:
+                            e[i].move_direction = 0
 
             elif(e[i].move_direction == 2): #电梯下行
                 if(e[i].current_floor % 1 != 0): #电梯未与楼层对齐
@@ -219,7 +231,19 @@ def core_algorithm(time, array_people):
                             if(p.in_which_elevator == i+1):
                                 p.current_floor = e[i].current_floor
                     elif(sum_of_people == 0): #电梯内无人，电梯静止(下一秒遍历楼层找人
-                        e[i].move_direction = 0
+                        jump_flag = 0
+                        for j in f[i][0:int(e[i].current_floor)]:
+                            if (j.up_button == True or j.down_button == True):
+                                e[i].current_floor -= elevator_speed  # 向下半层(用时一秒)
+                                for p in array_people:  # 更新所有乘客状态
+                                    if (p.in_which_elevator == i + 1):
+                                        p.current_floor = e[i].current_floor
+                                jump_flag = 1
+                                break
+                        if (jump_flag == 1):
+                            continue
+                        else:
+                            e[i].move_direction = 0
                 
         
     return [[e1,e2,e3],array_people]
