@@ -1,7 +1,5 @@
 ﻿using elevator_dispatch_GUI.models;
-
 using Newtonsoft.Json;
-
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -43,11 +41,11 @@ namespace elevator_dispatch_GUI
             Console.WriteLine(json);
             Logger.WriteLine(json);
             var algorithmResult = JsonConvert.DeserializeObject<AlgorithmOutput>(json);
-
+            algorithmInput.People = algorithmResult.People;
             var TbFloors = new List<TextBlock>();//楼层告示
             for (int i = 0; i < floorNum; i++)
             {
-                string s=$"{IndexToFloor(i)}F";
+                string s = $"{IndexToFloor(i)}F";
 
                 TextBlock tb = new TextBlock
                 {
@@ -172,8 +170,48 @@ namespace elevator_dispatch_GUI
 
             for (int i = 0; i < 3; i++)
             {
-                int from = r.Next(3, 20);
-                int to = r.Next(3, 20);
+                int from;
+                int to;
+
+                double eventP = r.NextDouble();
+                if (eventP <= 0.25)
+                {
+                    from = 3;
+                    while (true)
+                    {
+                        to = r.Next(0, 20);
+                        if (to != from)
+                        {
+                            break;//保证to和from不同
+                        }
+                    }
+                }
+                else if (eventP <= 0.5)
+                {
+                    to = 3;
+                    while (true)
+                    {
+                        from = r.Next(0, 20);
+                        if (to != from)
+                        {
+                            break;//保证to和from不同
+                        }
+                    }
+                }
+                else
+                {
+                    from = r.Next(0, 20);
+                    while (true)
+                    {
+                        to = r.Next(0, 20);
+                        if (to != from)
+                        {
+                            break;//保证to和from不同
+                        }
+                    }
+                }
+
+
 
                 for (int j = 0; j < 3; j++)
                 {
@@ -206,7 +244,7 @@ namespace elevator_dispatch_GUI
             //Console.WriteLine(output);
             if (string.IsNullOrWhiteSpace(output))
             {
-                MessageBox.Show($"发生异常!输入为{json}");
+                MessageBox.Show($"发生异常!输入为{json}\n可以查看in.json");
             }
             JsonToUI(output);
             timer.Tag = (int)timer.Tag + 1;
@@ -223,7 +261,7 @@ namespace elevator_dispatch_GUI
             SetAlgorithmInput();
             DispatcherTimer TimerUpdateUI = new DispatcherTimer
             {
-                Interval = TimeSpan.FromMilliseconds(500),
+                Interval = TimeSpan.FromMilliseconds(250),
                 Tag = 0
             };
             TimerUpdateUI.Tick += TimerUpdateUI_Tick;
