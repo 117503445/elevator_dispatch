@@ -9,8 +9,9 @@
     <Canvas x:Name="CvsMain">
         <TextBlock Canvas.Left="10" Canvas.Top="0" FontWeight="Bold" FontSize="18">楼层指示</TextBlock>
         <TextBlock Canvas.Left="18" Canvas.Top="98" FontSize="18" FontWeight="Bold">等待区</TextBlock>
-        <Button x:Name="BtnTest1" Content="test1" Width="75" Canvas.Left="7" Canvas.Top="140" Click="BtnTest1_Click"/>
-        <Button x:Name="BtnTest2" Content="test2" Width="75" Canvas.Left="7" Canvas.Top="176" Click="BtnTest2_Click"/>
+        <Button x:Name="BtnTest1" Content="time--" Width="75" Canvas.Left="43" Canvas.Top="736" Click="BtnTest1_Click"/>
+        <Button x:Name="BtnTest2" Content="time++" Width="75" Canvas.Left="151" Canvas.Top="736" Click="BtnTest2_Click"/>
+        <Button x:Name="BtnTest3" Content="时间自动增加" Width="75" Canvas.Left="265" Canvas.Top="736" Click="BtnTest3_Click"/>
         <TextBlock x:Name="TbTime" Canvas.Left="18" Canvas.Top="556" FontSize="24"></TextBlock>
         <TextBlock x:Name="TbInfo" Canvas.Left="18" Canvas.Top="656" FontSize="24">第一个电梯停单层,-3F -1F 1F 3F.. 第二个电梯停双层,-2F,1F,2F,4F.. 第三个电梯都停</TextBlock>
     </Canvas>

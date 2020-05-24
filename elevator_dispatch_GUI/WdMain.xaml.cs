@@ -229,10 +229,8 @@ namespace elevator_dispatch_GUI
 
         private void TimerUpdateUI_Tick(object sender, EventArgs e)
         {
-            var timer = sender as DispatcherTimer;
-            TbTime.Text = $"当前时间:第{(int)timer.Tag}秒";
             ClearUI();
-            algorithmInput.Time = (int)timer.Tag;
+            algorithmInput.Time = Time;
             string json = JsonConvert.SerializeObject(algorithmInput);
             //Console.WriteLine(json);
             File.WriteAllText(path_in_json, json);
@@ -249,9 +247,13 @@ namespace elevator_dispatch_GUI
             string output = File.ReadAllText("out.json");
 
             JsonToUI(output);
-            timer.Tag = (int)timer.Tag + 1;
-            Console.WriteLine(timer.Tag);
+            Time++;
+            Console.WriteLine(Time);
         }
+        DispatcherTimer TimerUpdateUI;
+        int time = 1;
+
+        public int Time { get => time; set { time = value; TbTime.Text = $"当前时间:第{value}秒"; } }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -261,25 +263,75 @@ namespace elevator_dispatch_GUI
             //string dir = info.DirectoryName;
             //string path_in_json = dir + "/in.json";
             SetAlgorithmInput();
-            DispatcherTimer TimerUpdateUI = new DispatcherTimer
+            TimerUpdateUI = new DispatcherTimer
             {
                 Interval = TimeSpan.FromMilliseconds(250),
-                Tag = 1
             };
             TimerUpdateUI.Tick += TimerUpdateUI_Tick;
-            TimerUpdateUI.Start();
+            //TimerUpdateUI.Start();
         }
 
         private void BtnTest1_Click(object sender, RoutedEventArgs e)
         {
+            Time--;
+            Console.WriteLine(Time);
             ClearUI();
+            algorithmInput.Time = Time;
+            string json = JsonConvert.SerializeObject(algorithmInput);
+            //Console.WriteLine(json);
+            File.WriteAllText(path_in_json, json);
+
+            //Close();
+            string cmd = $"python {PythonCaller.PathPythonFile}";
+            CMDHelper.RunCmd(cmd);
+            //string output = CMDHelper.RunCmd(cmd);
+            //if (string.IsNullOrWhiteSpace(output))
+            //{
+            //    MessageBox.Show($"发生异常!输入为{json}\n可以查看in.json");
+            //}
+
+            string output = File.ReadAllText("out.json");
+
+            JsonToUI(output);
+
+            
         }
 
         private void BtnTest2_Click(object sender, RoutedEventArgs e)
         {
+            Time++;
+            Console.WriteLine(Time);
+            ClearUI();
+            algorithmInput.Time = Time;
+            string json = JsonConvert.SerializeObject(algorithmInput);
+            //Console.WriteLine(json);
+            File.WriteAllText(path_in_json, json);
+
+            //Close();
             string cmd = $"python {PythonCaller.PathPythonFile}";
-            string output = CMDHelper.RunCmd(cmd);
+            CMDHelper.RunCmd(cmd);
+            //string output = CMDHelper.RunCmd(cmd);
+            //if (string.IsNullOrWhiteSpace(output))
+            //{
+            //    MessageBox.Show($"发生异常!输入为{json}\n可以查看in.json");
+            //}
+
+            string output = File.ReadAllText("out.json");
+
             JsonToUI(output);
+
+            
+        }
+        private void BtnTest3_Click(object sender, RoutedEventArgs e)
+        {
+            if (TimerUpdateUI.IsEnabled)
+            {
+                TimerUpdateUI.Stop();
+            }
+            else
+            {
+                TimerUpdateUI.Start();
+            }
         }
     }
 }
