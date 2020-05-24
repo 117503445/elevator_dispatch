@@ -11,10 +11,6 @@ elevator_speed = 0.5  # 电梯速度,每秒0.5层
 NUMBER_OF_FLOOR_LEVELS = 21 #总楼层数
 
 
-class floor:    #楼层
-    floor_people = []
-    up_button = False #电梯上升按钮
-    down_button = False #电梯下降按钮
     
 class person:  # 人
     come_time = 0  # 出现的时间

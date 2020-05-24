@@ -174,7 +174,7 @@ def core_algorithm(time, array_people):
                                 p.current_floor = e[i].current_floor
                     elif(sum_of_people == 0): #电梯内无人，电梯静止(下一秒遍历楼层找人
                         jump_flag = 0
-                        for j in f[i][int(e[i].current_floor):-1]:
+                        for j in f[i][int(e[i].current_floor)+1:-1]:
                             if(j.up_button == True or j.down_button == True):
                                 e[i].current_floor += elevator_speed  # 向上半层(用时一秒)
                                 for p in array_people:  # 更新所有乘客状态
@@ -233,7 +233,7 @@ def core_algorithm(time, array_people):
                                 p.current_floor = e[i].current_floor
                     elif(sum_of_people == 0): #电梯内无人，电梯静止(下一秒遍历楼层找人
                         jump_flag = 0
-                        for j in f[i][0:int(e[i].current_floor)]:
+                        for j in f[i][0:int(e[i].current_floor)-1]:
                             if (j.up_button == True or j.down_button == True):
                                 e[i].current_floor -= elevator_speed  # 向下半层(用时一秒)
                                 for p in array_people:  # 更新所有乘客状态
