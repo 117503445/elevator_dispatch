@@ -41,10 +41,11 @@ class elevator:
 
 
 class floor:
-    floor_up_people = []
-    floor_down_people = []
-    up_button = False #电梯上升按钮
-    down_button = False #电梯下降按钮
+    def __init__(self):
+        self.floor_up_people = []
+        self.floor_down_people = []
+        self.up_button = False #电梯上升按钮
+        self.down_button = False #电梯下降按钮
 
 
 def core_algorithm(time, array_people):
