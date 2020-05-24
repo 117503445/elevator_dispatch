@@ -262,7 +262,7 @@ namespace elevator_dispatch_GUI
             DispatcherTimer TimerUpdateUI = new DispatcherTimer
             {
                 Interval = TimeSpan.FromMilliseconds(250),
-                Tag = 0
+                Tag = 1
             };
             TimerUpdateUI.Tick += TimerUpdateUI_Tick;
             TimerUpdateUI.Start();
