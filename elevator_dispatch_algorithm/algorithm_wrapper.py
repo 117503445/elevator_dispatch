@@ -38,3 +38,4 @@ if __name__ == "__main__":
     r.people = result[1]
     r_json = json.dumps(r, indent=4)
     print(r_json)
+    file_util.write_all_text('out.json',r_json)

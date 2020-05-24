@@ -239,13 +239,15 @@ namespace elevator_dispatch_GUI
 
             //Close();
             string cmd = $"python {PythonCaller.PathPythonFile}";
-            string output = CMDHelper.RunCmd(cmd);
-            //Logger.WriteLine(output);
-            //Console.WriteLine(output);
-            if (string.IsNullOrWhiteSpace(output))
-            {
-                MessageBox.Show($"发生异常!输入为{json}\n可以查看in.json");
-            }
+            CMDHelper.RunCmd(cmd);
+            //string output = CMDHelper.RunCmd(cmd);
+            //if (string.IsNullOrWhiteSpace(output))
+            //{
+            //    MessageBox.Show($"发生异常!输入为{json}\n可以查看in.json");
+            //}
+
+            string output = File.ReadAllText("out.json");
+
             JsonToUI(output);
             timer.Tag = (int)timer.Tag + 1;
             Console.WriteLine(timer.Tag);
