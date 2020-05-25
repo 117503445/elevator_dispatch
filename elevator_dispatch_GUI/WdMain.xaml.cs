@@ -156,7 +156,9 @@ namespace elevator_dispatch_GUI
             }
             tempElements.Clear();
         }
-
+        /// <summary>
+        /// "in.json"
+        /// </summary>
         private readonly string path_in_json = "in.json";
         private readonly Random r = new Random();
         private AlgorithmInput algorithmInput;
@@ -239,12 +241,13 @@ namespace elevator_dispatch_GUI
             string cmd = $"python {PythonCaller.PathPythonFile}";
             CMDHelper.RunCmd(cmd);
             //string output = CMDHelper.RunCmd(cmd);
-            //if (string.IsNullOrWhiteSpace(output))
-            //{
-            //    MessageBox.Show($"发生异常!输入为{json}\n可以查看in.json");
-            //}
-
             string output = File.ReadAllText("out.json");
+
+            if (string.IsNullOrWhiteSpace(output))
+            {
+                MessageBox.Show($"发生异常!输入为{json}\n可以查看in.json\nout.json为空");
+            }
+
 
             JsonToUI(output);
             Time++;
