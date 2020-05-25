@@ -11,7 +11,7 @@ namespace elevator_dispatch_GUI
     {
         private const string filename = "algorithm_wrapper.py";
         private static string pathPythonFile;
-
+        public static string PythonCMD = $"python {PythonCaller.PathPythonFile}";
         public static string PathPythonFile
         {
             get

@@ -272,6 +272,8 @@ namespace elevator_dispatch_GUI
             };
             TimerUpdateUI.Tick += TimerUpdateUI_Tick;
             //TimerUpdateUI.Start();
+            TbPyPath.Text += PythonCaller.PathPythonFile;
+            TbCMD.Text += PythonCaller.PythonCMD;
         }
 
         private void BtnTest1_Click(object sender, RoutedEventArgs e)
@@ -297,7 +299,7 @@ namespace elevator_dispatch_GUI
 
             JsonToUI(output);
 
-            
+
         }
 
         private void BtnTest2_Click(object sender, RoutedEventArgs e)
@@ -323,7 +325,7 @@ namespace elevator_dispatch_GUI
 
             JsonToUI(output);
 
-            
+
         }
         private void BtnTest3_Click(object sender, RoutedEventArgs e)
         {

@@ -1,0 +1,47 @@
+POST http://localhost HTTP/1.1
+
+{
+    "Time": 7,
+    "People": [
+        {
+            "come_time": 1,
+            "from_floor": 3,
+            "to_floor": 12,
+            "current_floor": 3,
+            "in_which_elevator": 0,
+            "is_out": false
+        },
+        {
+            "come_time": 1,
+            "from_floor": 3,
+            "to_floor": 12,
+            "current_floor": 3,
+            "in_which_elevator": 0,
+            "is_out": false
+        },
+        {
+            "come_time": 1,
+            "from_floor": 3,
+            "to_floor": 12,
+            "current_floor": 3,
+            "in_which_elevator": 0,
+            "is_out": false
+        },
+        {
+            "come_time": 6,
+            "from_floor": 4,
+            "to_floor": 6,
+            "current_floor": 4,
+            "in_which_elevator": 0,
+            "is_out": false
+        },
+        {
+            "come_time": 6,
+            "from_floor": 4,
+            "to_floor": 6,
+            "current_floor": 4,
+            "in_which_elevator": 0,
+            "is_out": false
+        }
+    ]
+}

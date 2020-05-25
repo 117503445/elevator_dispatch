@@ -14,5 +14,7 @@
         <Button x:Name="BtnTest3" Content="时间自动增加" Width="75" Canvas.Left="265" Canvas.Top="736" Click="BtnTest3_Click"/>
         <TextBlock x:Name="TbTime" Canvas.Left="18" Canvas.Top="556" FontSize="24"></TextBlock>
         <TextBlock x:Name="TbInfo" Canvas.Left="18" Canvas.Top="656" FontSize="24">第一个电梯停单层,-3F -1F 1F 3F.. 第二个电梯停双层,-2F,1F,2F,4F.. 第三个电梯都停</TextBlock>
+        <TextBlock x:Name="TbPyPath" Text="Path of Python file is " Canvas.Left="18" Canvas.Top="810" FontSize="24"></TextBlock>
+        <TextBlock x:Name="TbCMD" Text="Cmd is " Canvas.Left="18" Canvas.Top="864" FontSize="24"></TextBlock>
     </Canvas>
 </Window>
