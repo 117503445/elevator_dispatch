@@ -9,6 +9,6 @@ namespace elevator_dispatch_GUI.models
     public class AlgorithmInput
     {
         public int Time { get; set; }
-        public Person[] People { get; set; }
+        public List<Person> People { get; set; }
     }
 }

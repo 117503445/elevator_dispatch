@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Windows;
 using System.Windows.Controls;
@@ -162,7 +163,7 @@ namespace elevator_dispatch_GUI
         /// </summary>
         private readonly string path_in_json = "in.json";
         private readonly Random r = new Random();
-        HttpClient httpClient = new HttpClient();
+        private readonly HttpClient httpClient = new HttpClient();
         private AlgorithmInput algorithmInput;
         private void SetAlgorithmInput()
         {
@@ -170,10 +171,10 @@ namespace elevator_dispatch_GUI
             algorithmInput = new AlgorithmInput
             {
                 Time = 10,
-                People = new Person[9]
+                People = new List<Person>()
             };
 
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 100; i++)
             {
                 int from;
                 int to;
@@ -216,7 +217,7 @@ namespace elevator_dispatch_GUI
                     }
                 }
 
-                for (int j = 0; j < 3; j++)
+                for (int j = 0; j < r.Next(1, 6); j++)
                 {
                     Person p = new Person
                     {
@@ -225,7 +226,8 @@ namespace elevator_dispatch_GUI
                         come_time = i * 5 + 1,
                         to_floor = to
                     };
-                    algorithmInput.People[i * 3 + j] = p;
+                    algorithmInput.People.Add(p);
+                    //algorithmInput.People[i * 3 + j] = p;
                 }
             }
         }
@@ -261,7 +263,7 @@ namespace elevator_dispatch_GUI
             SetAlgorithmInput();
             TimerUpdateUI = new DispatcherTimer
             {
-                Interval = TimeSpan.FromMilliseconds(250),
+                Interval = TimeSpan.FromMilliseconds(150),
             };
             TimerUpdateUI.Tick += TimerUpdateUI_Tick;
             //TimerUpdateUI.Start();
