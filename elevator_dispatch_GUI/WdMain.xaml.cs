@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net.Http;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -19,6 +20,7 @@ namespace elevator_dispatch_GUI
     /// </summary>
     public partial class WdMain : Window
     {
+        private const bool isLocal = false;
         private const int floorNum = 21;
         public WdMain()
         {
@@ -38,7 +40,6 @@ namespace elevator_dispatch_GUI
         }
         private void JsonToUI(string json)
         {
-            Console.WriteLine(json);
             Logger.WriteLine(json);
             var algorithmResult = JsonConvert.DeserializeObject<AlgorithmOutput>(json);
             algorithmInput.People = algorithmResult.People;
@@ -161,9 +162,11 @@ namespace elevator_dispatch_GUI
         /// </summary>
         private readonly string path_in_json = "in.json";
         private readonly Random r = new Random();
+        HttpClient httpClient = new HttpClient();
         private AlgorithmInput algorithmInput;
         private void SetAlgorithmInput()
         {
+
             algorithmInput = new AlgorithmInput
             {
                 Time = 10,
@@ -213,8 +216,6 @@ namespace elevator_dispatch_GUI
                     }
                 }
 
-
-
                 for (int j = 0; j < 3; j++)
                 {
                     Person p = new Person
@@ -232,24 +233,10 @@ namespace elevator_dispatch_GUI
         private void TimerUpdateUI_Tick(object sender, EventArgs e)
         {
             ClearUI();
-            algorithmInput.Time = Time;
-            string json = JsonConvert.SerializeObject(algorithmInput);
-            //Console.WriteLine(json);
-            File.WriteAllText(path_in_json, json);
-
-            //Close();
-            string cmd = $"python {PythonCaller.PathPythonFile}";
-            CMDHelper.RunCmd(cmd);
-            //string output = CMDHelper.RunCmd(cmd);
-            string output = File.ReadAllText("out.json");
-
-            if (string.IsNullOrWhiteSpace(output))
-            {
-                MessageBox.Show($"发生异常!输入为{json}\n可以查看in.json\nout.json为空");
-            }
-
+            string output = GetOutput(isLocal);
 
             JsonToUI(output);
+
             Time++;
             Console.WriteLine(Time);
         }
@@ -265,6 +252,12 @@ namespace elevator_dispatch_GUI
             //FileInfo info = new FileInfo(PythonCaller.PathPythonFile);
             //string dir = info.DirectoryName;
             //string path_in_json = dir + "/in.json";
+
+            if (Directory.Exists("jsons"))
+            {
+                Directory.Delete("jsons", true);
+            }
+
             SetAlgorithmInput();
             TimerUpdateUI = new DispatcherTimer
             {
@@ -274,57 +267,59 @@ namespace elevator_dispatch_GUI
             //TimerUpdateUI.Start();
             TbPyPath.Text += PythonCaller.PathPythonFile;
             TbCMD.Text += PythonCaller.PythonCMD;
+            TbisLocal.Text += (!isLocal).ToString();
         }
+        private string GetOutput(bool isLocal)
+        {
+            algorithmInput.Time = Time;
+            string json = JsonConvert.SerializeObject(algorithmInput);
 
+
+            if (!Directory.Exists("jsons"))
+            {
+                Directory.CreateDirectory("jsons");
+            }
+            File.WriteAllText($"jsons/{time}_in.json", json);
+            string output;
+            //Console.WriteLine(json);
+            if (isLocal)
+            {
+                File.WriteAllText(path_in_json, json);
+                string cmd = $"python {PythonCaller.PathPythonFile}";
+                CMDHelper.RunCmd(cmd);
+
+                output = File.ReadAllText("out.json");
+            }
+            else
+            {
+                HttpContent content = new StringContent(json);
+                content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+                var response = httpClient.PostAsync("http://ali.117503445.top:8006", content).Result;
+                output = response.Content.ReadAsStringAsync().Result;
+            }
+
+            if (string.IsNullOrWhiteSpace(output))
+            {
+                MessageBox.Show($"发生异常!输入为{json}\n可以查看in.json");
+            }
+            File.WriteAllText($"jsons/{time}_out.json", output);
+            return output;
+        }
         private void BtnTest1_Click(object sender, RoutedEventArgs e)
         {
             Time--;
-            Console.WriteLine(Time);
             ClearUI();
-            algorithmInput.Time = Time;
-            string json = JsonConvert.SerializeObject(algorithmInput);
-            //Console.WriteLine(json);
-            File.WriteAllText(path_in_json, json);
 
-            //Close();
-            string cmd = $"python {PythonCaller.PathPythonFile}";
-            CMDHelper.RunCmd(cmd);
-            //string output = CMDHelper.RunCmd(cmd);
-            //if (string.IsNullOrWhiteSpace(output))
-            //{
-            //    MessageBox.Show($"发生异常!输入为{json}\n可以查看in.json");
-            //}
-
-            string output = File.ReadAllText("out.json");
-
+            string output = GetOutput(isLocal);
             JsonToUI(output);
-
-
         }
 
         private void BtnTest2_Click(object sender, RoutedEventArgs e)
         {
             Time++;
-            Console.WriteLine(Time);
             ClearUI();
-            algorithmInput.Time = Time;
-            string json = JsonConvert.SerializeObject(algorithmInput);
-            //Console.WriteLine(json);
-            File.WriteAllText(path_in_json, json);
-
-            //Close();
-            string cmd = $"python {PythonCaller.PathPythonFile}";
-            CMDHelper.RunCmd(cmd);
-            //string output = CMDHelper.RunCmd(cmd);
-            //if (string.IsNullOrWhiteSpace(output))
-            //{
-            //    MessageBox.Show($"发生异常!输入为{json}\n可以查看in.json");
-            //}
-
-            string output = File.ReadAllText("out.json");
-
+            string output = GetOutput(isLocal);
             JsonToUI(output);
-
 
         }
         private void BtnTest3_Click(object sender, RoutedEventArgs e)
