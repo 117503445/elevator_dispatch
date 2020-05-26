@@ -42,7 +42,7 @@ namespace elevator_dispatch_GUI
         {
             Logger.WriteLine(json);
             var algorithmResult = JsonConvert.DeserializeObject<AlgorithmOutput>(json);
-            algorithmInput.People = algorithmResult.People;
+            //algorithmInput.People = algorithmResult.People;
             var TbFloors = new List<TextBlock>();//楼层告示
             for (int i = 0; i < floorNum; i++)
             {
