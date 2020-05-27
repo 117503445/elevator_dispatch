@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:elevator_dispatch_GUI"
         mc:Ignorable="d"
-        Title="WdMain" Height="1000" Width="1800" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
+        Title="电梯调度模拟" Height="1000" Width="1800" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
     <Canvas x:Name="CvsMain">
         <TextBlock Canvas.Left="10" Canvas.Top="0" FontWeight="Bold" FontSize="18">楼层指示</TextBlock>
         <TextBlock Canvas.Left="18" Canvas.Top="98" FontSize="18" FontWeight="Bold">等待区</TextBlock>
